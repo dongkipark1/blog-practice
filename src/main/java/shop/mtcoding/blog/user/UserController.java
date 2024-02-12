@@ -84,6 +84,7 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout() {
+        session.invalidate(); // 서랍비우기
         return "redirect:/";
     }
 }

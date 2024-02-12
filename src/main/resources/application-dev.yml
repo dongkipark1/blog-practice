@@ -20,6 +20,12 @@ spring:
   h2:
     console:
       enabled: true
+  sql:
+    init:
+      data-locations:
+        - classpath:db/data.sql
+  # 스프링 실행할때 초기화하는 설정법
+
   jpa:
     hibernate:
       ddl-auto: create
@@ -27,3 +33,5 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    defer-datasource-initialization: true
+# ddl-auto가 된 후에 실행되게 하는 설정

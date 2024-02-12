@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class Board {
     @Id // pk설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동증가
+    private int id;
     private String title;
     private String content;
 

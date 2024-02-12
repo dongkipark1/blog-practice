@@ -27,6 +27,48 @@ public class BoardController {
 //  }
 
 
+    @PostMapping("/board/{id}/update")
+    public String update(@PathVariable int id, BoardRequest.UpdateDTO requestDTO) {
+        // 1.인증 체크
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            return "redirect:/loginForm";
+        }
+
+        // 2. 권한 체크
+        Board board = boardRepository.findById(id);
+        if (board.getUserId() != sessionUser.getId()) {
+            return "error/403";
+        }
+
+        // 3. 핵심 로직
+
+        boardRepository.update(requestDTO, id);
+
+        return "redirect:/board/" + id;
+    }
+
+    @GetMapping("/board/{id}/updateForm")
+    public String updateForm(@PathVariable int id, HttpServletRequest request) {
+        // 1. 인증 안되면 나가
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            return "redirect:/loginForm";
+        }
+
+        // 2. 권한 없으면 나가
+        // 모델 위임 (id로 board를 조회)
+        Board board = boardRepository.findById(id);
+        if (board.getUserId() != sessionUser.getId()) {
+            return "error/403";
+        }
+
+        // 3. 가방에 담기
+        request.setAttribute("board", board);
+
+        return "board/updateForm";
+    }
+
     @PostMapping("board/{id}/delete")
     public String delete(@PathVariable int id, HttpServletRequest request) {
         // findById 조회코드를 만들었지만 join할 필요없다 재사용 불가

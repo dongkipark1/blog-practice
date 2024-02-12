@@ -12,6 +12,9 @@ public class Board {
     @Id // pk설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동증가
     private int id;
+
+    // 유효성 검사
+    @Column(length = 30)
     private String title;
     private String content;
 

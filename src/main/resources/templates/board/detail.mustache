@@ -8,15 +8,17 @@
         <button class="btn btn-danger">삭제</button>
     </div>
     <div class="d-flex justify-content-end">
-        <b>작성자</b> : ssar
+<!--   화면에서 렌더링(마크업 언어를 사람의 눈으로 보이게 만들기)하기     -->
+        <b>작성자</b> : {{board.username}}
     </div>
 
     <!-- 게시글내용 -->
+<!--  화면에서 렌더링하기  -->
     <div>
-        <h2><b>제목자리</b></h2>
+        <h2><b>{{board.title}}</b></h2>
         <hr />
         <div class="m-4 p-2">
-            내용입니다
+            {{board.content}}
         </div>
     </div>
 
